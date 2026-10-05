@@ -1,10 +1,11 @@
-package tn.esprit.autoloc.domain;
+package tn.esprit.autoloc.Entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tn.esprit.autoloc.Entities.enums.RoleEmploye;
 
 @Entity
 @Table(name = "employe")

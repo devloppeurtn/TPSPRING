@@ -1,4 +1,4 @@
-package tn.esprit.autoloc.domain;
+package tn.esprit.autoloc.Entities.enums;
 
 public enum ModePaiement {
     CARTE, ESPECES, VIREMENT

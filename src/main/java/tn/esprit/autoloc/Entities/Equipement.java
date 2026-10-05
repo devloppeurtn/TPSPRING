@@ -1,4 +1,4 @@
-package tn.esprit.autoloc.domain;
+package tn.esprit.autoloc.Entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,26 +7,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "agence")
+@Table(name = "equipement")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Agence {
+public class Equipement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
+    private Long idEquipement;
 
     @Column(nullable = false, length = 100)
-    private String nom;
-
-    @Column(nullable = false, length = 50)
-    private String ville;
-
-    @Column(nullable = false)
-    private String adresse;
-
-    @Column(length = 20)
-    private String telephone;
+    private String libelle;
 }

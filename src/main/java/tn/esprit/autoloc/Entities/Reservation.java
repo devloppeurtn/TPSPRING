@@ -1,33 +1,33 @@
-package tn.esprit.autoloc.domain;
+package tn.esprit.autoloc.Entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tn.esprit.autoloc.Entities.enums.StatutReservation;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "paiement")
+@Table(name = "reservation")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Paiement {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPaiement;
-
-    @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal montant;
+    private Long idReservation;
 
     @Column(nullable = false)
-    private LocalDateTime datePaiement;
+    private LocalDate dateDebut;
+
+    @Column(nullable = false)
+    private LocalDate dateFin;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private ModePaiement modePaiement;
+    private StatutReservation statut;
 }
