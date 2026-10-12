@@ -38,6 +38,7 @@ public class AgenceServiceImpl implements IAgenceService {
 
     @Override
     public void removeAgence(Long idAgence) {
+        retrieveAgence(idAgence);
         agenceRepository.deleteById(idAgence);
     }
 }

@@ -38,6 +38,7 @@ public class ContratServiceImpl implements IContratService {
 
     @Override
     public void removeContrat(Long idContrat) {
+        retrieveContrat(idContrat);
         contratRepository.deleteById(idContrat);
     }
 }

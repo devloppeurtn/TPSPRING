@@ -38,6 +38,7 @@ public class PaiementServiceImpl implements IPaiementService {
 
     @Override
     public void removePaiement(Long idPaiement) {
+        retrievePaiement(idPaiement);
         paiementRepository.deleteById(idPaiement);
     }
 }

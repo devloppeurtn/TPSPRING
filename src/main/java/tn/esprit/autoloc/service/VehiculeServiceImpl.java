@@ -38,6 +38,7 @@ public class VehiculeServiceImpl implements IVehiculeService {
 
     @Override
     public void removeVehicule(Long idVehicule) {
+        retrieveVehicule(idVehicule);
         vehiculeRepository.deleteById(idVehicule);
     }
 }

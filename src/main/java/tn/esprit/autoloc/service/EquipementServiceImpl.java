@@ -38,6 +38,7 @@ public class EquipementServiceImpl implements IEquipementService {
 
     @Override
     public void removeEquipement(Long idEquipement) {
+        retrieveEquipement(idEquipement);
         equipementRepository.deleteById(idEquipement);
     }
 }

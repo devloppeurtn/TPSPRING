@@ -38,6 +38,7 @@ public class ClientServiceImpl implements IClientService {
 
     @Override
     public void removeClient(Long idClient) {
+        retrieveClient(idClient);
         clientRepository.deleteById(idClient);
     }
 }

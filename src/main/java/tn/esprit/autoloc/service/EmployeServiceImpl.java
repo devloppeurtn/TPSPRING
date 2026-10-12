@@ -38,6 +38,7 @@ public class EmployeServiceImpl implements IEmployeService {
 
     @Override
     public void removeEmploye(Long idEmploye) {
+        retrieveEmploye(idEmploye);
         employeRepository.deleteById(idEmploye);
     }
 }

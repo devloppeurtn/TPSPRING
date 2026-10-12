@@ -38,6 +38,7 @@ public class MaintenanceServiceImpl implements IMaintenanceService {
 
     @Override
     public void removeMaintenance(Long idMaintenance) {
+        retrieveMaintenance(idMaintenance);
         maintenanceRepository.deleteById(idMaintenance);
     }
 }
