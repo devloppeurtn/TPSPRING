@@ -3,6 +3,7 @@ package tn.esprit.autoloc.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.Entities.Agence;
 import tn.esprit.autoloc.repository.AgenceRepository;
 
@@ -37,8 +38,10 @@ public class AgenceServiceImpl implements IAgenceService {
     }
 
     @Override
+    @Transactional
     public void removeAgence(Long idAgence) {
-        retrieveAgence(idAgence);
-        agenceRepository.deleteById(idAgence);
+        Agence agence = retrieveAgence(idAgence);
+        agence.getVehicules().forEach(vehicule -> vehicule.setAgence(null));
+        agenceRepository.delete(agence);
     }
 }

@@ -43,4 +43,10 @@ public class PaiementController {
         paiementService.removePaiement(id);
         return Map.of("message", "Paiement " + id + " supprimé avec succès");
     }
+
+    @PutMapping("/{idPaiement}/contrat/{idContrat}")
+    public Map<String, String> affecterPaiementAContrat(@PathVariable Long idPaiement, @PathVariable Long idContrat) {
+        paiementService.affecterPaiementAContrat(idPaiement, idContrat);
+        return Map.of("message", "Paiement " + idPaiement + " affecté au contrat " + idContrat);
+    }
 }

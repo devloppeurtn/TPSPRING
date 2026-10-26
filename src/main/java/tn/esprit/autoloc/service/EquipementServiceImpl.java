@@ -3,6 +3,7 @@ package tn.esprit.autoloc.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.Entities.Equipement;
 import tn.esprit.autoloc.repository.EquipementRepository;
 
@@ -37,8 +38,10 @@ public class EquipementServiceImpl implements IEquipementService {
     }
 
     @Override
+    @Transactional
     public void removeEquipement(Long idEquipement) {
-        retrieveEquipement(idEquipement);
-        equipementRepository.deleteById(idEquipement);
+        Equipement equipement = retrieveEquipement(idEquipement);
+        equipement.getVehicules().forEach(vehicule -> vehicule.getEquipements().remove(equipement));
+        equipementRepository.delete(equipement);
     }
 }

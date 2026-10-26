@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "contrat")
@@ -29,4 +32,12 @@ public class Contrat {
 
     @Column(nullable = false)
     private boolean valide;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "contrat")
+    private Reservation reservation;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "contrat")
+    private List<Paiement> paiements = new ArrayList<>();
 }

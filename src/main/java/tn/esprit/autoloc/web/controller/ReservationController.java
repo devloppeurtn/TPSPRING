@@ -43,4 +43,22 @@ public class ReservationController {
         reservationService.removeReservation(id);
         return Map.of("message", "Reservation " + id + " supprimé avec succès");
     }
+
+    @PutMapping("/{idReservation}/contrat/{idContrat}")
+    public Map<String, String> affecterContratAReservation(@PathVariable Long idReservation, @PathVariable Long idContrat) {
+        reservationService.affecterContratAReservation(idContrat, idReservation);
+        return Map.of("message", "Contrat " + idContrat + " affecté à la reservation " + idReservation);
+    }
+
+    @DeleteMapping("/{idReservation}/contrat")
+    public Map<String, String> desaffecterContratDeReservation(@PathVariable Long idReservation) {
+        reservationService.desaffecterContratDeReservation(idReservation);
+        return Map.of("message", "Contrat retiré de la reservation " + idReservation);
+    }
+
+    @PutMapping("/{idReservation}/client/{idClient}")
+    public Map<String, String> affecterClientAReservation(@PathVariable Long idReservation, @PathVariable Long idClient) {
+        reservationService.affecterClientAReservation(idClient, idReservation);
+        return Map.of("message", "Client " + idClient + " affecté à la reservation " + idReservation);
+    }
 }

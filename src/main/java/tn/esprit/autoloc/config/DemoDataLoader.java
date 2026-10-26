@@ -29,14 +29,27 @@ public class DemoDataLoader implements CommandLineRunner {
         }
 
         List<Vehicule> vehicules = List.of(
-                new Vehicule(null, "123 TU 4567", "Peugeot", "208", CategorieVehicule.CITADINE,
-                        new BigDecimal("90.00"), StatutVehicule.DISPONIBLE),
-                new Vehicule(null, "234 TU 5678", "Volkswagen", "Passat", CategorieVehicule.BERLINE,
-                        new BigDecimal("150.00"), StatutVehicule.DISPONIBLE),
-                new Vehicule(null, "345 TU 6789", "Kia", "Sportage", CategorieVehicule.SUV,
-                        new BigDecimal("180.00"), StatutVehicule.MAINTENANCE)
+                vehicule("123 TU 4567", "Peugeot", "208", CategorieVehicule.CITADINE,
+                        "90.00", StatutVehicule.DISPONIBLE),
+                vehicule("234 TU 5678", "Volkswagen", "Passat", CategorieVehicule.BERLINE,
+                        "150.00", StatutVehicule.DISPONIBLE),
+                vehicule("345 TU 6789", "Kia", "Sportage", CategorieVehicule.SUV,
+                        "180.00", StatutVehicule.MAINTENANCE)
         );
         vehiculeRepository.saveAll(vehicules);
         log.info("{} véhicules de démonstration insérés", vehicules.size());
+    }
+
+    private static Vehicule vehicule(String immatriculation, String marque, String modele,
+                                     CategorieVehicule categorie, String tarifJournalier,
+                                     StatutVehicule statut) {
+        Vehicule vehicule = new Vehicule();
+        vehicule.setImmatriculation(immatriculation);
+        vehicule.setMarque(marque);
+        vehicule.setModele(modele);
+        vehicule.setCategorie(categorie);
+        vehicule.setTarifJournalier(new BigDecimal(tarifJournalier));
+        vehicule.setStatut(statut);
+        return vehicule;
     }
 }

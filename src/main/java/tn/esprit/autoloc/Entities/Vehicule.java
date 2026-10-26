@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import tn.esprit.autoloc.Entities.enums.CategorieVehicule;
 import tn.esprit.autoloc.Entities.enums.StatutVehicule;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "vehicule")
@@ -41,4 +44,16 @@ public class Vehicule {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ManyToOne
+    @JoinColumn(name = "id_agence")
+    private Agence agence;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ManyToMany
+    @JoinTable(name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "id_vehicule"),
+            inverseJoinColumns = @JoinColumn(name = "id_equipement"))
+    private Set<Equipement> equipements = new HashSet<>();
 }

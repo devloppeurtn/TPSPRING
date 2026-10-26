@@ -3,6 +3,7 @@ package tn.esprit.autoloc.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.Entities.Contrat;
 import tn.esprit.autoloc.repository.ContratRepository;
 
@@ -37,8 +38,13 @@ public class ContratServiceImpl implements IContratService {
     }
 
     @Override
+    @Transactional
     public void removeContrat(Long idContrat) {
-        retrieveContrat(idContrat);
-        contratRepository.deleteById(idContrat);
+        Contrat contrat = retrieveContrat(idContrat);
+        if (contrat.getReservation() != null) {
+            contrat.getReservation().setContrat(null);
+        }
+        contrat.getPaiements().forEach(paiement -> paiement.setContrat(null));
+        contratRepository.delete(contrat);
     }
 }

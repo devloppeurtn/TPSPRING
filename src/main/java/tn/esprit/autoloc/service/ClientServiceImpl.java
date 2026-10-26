@@ -3,6 +3,7 @@ package tn.esprit.autoloc.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.autoloc.Entities.Client;
 import tn.esprit.autoloc.repository.ClientRepository;
 
@@ -37,8 +38,10 @@ public class ClientServiceImpl implements IClientService {
     }
 
     @Override
+    @Transactional
     public void removeClient(Long idClient) {
-        retrieveClient(idClient);
-        clientRepository.deleteById(idClient);
+        Client client = retrieveClient(idClient);
+        client.getReservations().forEach(reservation -> reservation.setClient(null));
+        clientRepository.delete(client);
     }
 }

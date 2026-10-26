@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,4 +31,14 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatutReservation statut;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ManyToOne
+    @JoinColumn(name = "id_client")
+    private Client client;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @OneToOne
+    @JoinColumn(name = "id_contrat", unique = true)
+    private Contrat contrat;
 }

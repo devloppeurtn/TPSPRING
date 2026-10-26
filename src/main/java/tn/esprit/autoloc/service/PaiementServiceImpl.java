@@ -3,7 +3,10 @@ package tn.esprit.autoloc.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tn.esprit.autoloc.Entities.Contrat;
 import tn.esprit.autoloc.Entities.Paiement;
+import tn.esprit.autoloc.repository.ContratRepository;
 import tn.esprit.autoloc.repository.PaiementRepository;
 
 import java.util.List;
@@ -13,6 +16,7 @@ import java.util.List;
 public class PaiementServiceImpl implements IPaiementService {
 
     private final PaiementRepository paiementRepository;
+    private final ContratRepository contratRepository;
 
     @Override
     public List<Paiement> retrieveAllPaiements() {
@@ -31,8 +35,10 @@ public class PaiementServiceImpl implements IPaiementService {
     }
 
     @Override
+    @Transactional
     public Paiement updatePaiement(Paiement paiement) {
-        retrievePaiement(paiement.getIdPaiement());
+        Paiement existant = retrievePaiement(paiement.getIdPaiement());
+        paiement.setContrat(existant.getContrat());
         return paiementRepository.save(paiement);
     }
 
@@ -40,5 +46,14 @@ public class PaiementServiceImpl implements IPaiementService {
     public void removePaiement(Long idPaiement) {
         retrievePaiement(idPaiement);
         paiementRepository.deleteById(idPaiement);
+    }
+
+    @Override
+    @Transactional
+    public void affecterPaiementAContrat(Long idPaiement, Long idContrat) {
+        Paiement paiement = retrievePaiement(idPaiement);
+        Contrat contrat = contratRepository.findById(idContrat)
+                .orElseThrow(() -> new EntityNotFoundException("Contrat introuvable : " + idContrat));
+        paiement.setContrat(contrat);
     }
 }
